@@ -4,14 +4,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 from pypdf import PdfReader
 import sys
 
+
 def sp(arr, s_chunk):
     for i in range(0, len(arr), s_chunk):
         yield arr[i:i+s_chunk]
 
-def check_extensio(path)->int:
+
+def check_extensio(path) -> int:
     index_point = path.find(".") + 1
     new_path = path[index_point:]
-    assert new_path == "pdf"or new_path == "txt" , "unsuport extension"
+    assert new_path == "pdf" or new_path == "txt",  "unsuport extension"
     if new_path == "pdf":
         return 1
     return 0
@@ -27,7 +29,7 @@ def my_prop_rag():
         page = file.pages[0]
         arr = page.extract_text()
     elif not check_extensio(sys.argv[1]):
-        file = open(sys.argv[1],"r")
+        file = open(sys.argv[1], "r")
         arr = file.read()
     chunk = list(sp(arr, 50))
     batch = ollama.embed(model='embeddinggemma', input=chunk)
