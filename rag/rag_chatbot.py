@@ -42,7 +42,10 @@ def my_prop_rag():
         v1 = np.array(batch['embeddings'])
         v2 = np.array(imb_question['embeddings'][0])
         v2 = v2.reshape(1, -1)
+        print("v1 is :",v1)
+        print("v2 is :",v2)
         similarity = cosine_similarity(v1, v2)
+        print("similarity", similarity)
         similarity_1d = similarity.reshape(-1)
         best_index = similarity_1d.argmax()
         best_chunk = chunk[best_index]
